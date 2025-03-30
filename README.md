@@ -17,7 +17,7 @@ A **Calculadora de IMC** é um aplicativo Android desenvolvido em Java no Androi
 O desenvolvimento do aplicativo envolveu a implementação de conceitos fundamentais do Android, como navegação entre telas, tratamento de entrada do usuário e exibição de feedback visual. Durante esse processo, alguns desafios foram enfrentados, tais como:
 
 ### **Desafios Superados:**
-- **Gerenciamento da navegação** entre Activities para garantir uma experiência fluida;
+- **Gerenciamento da navegação** entre Activities;
 - **Ajuste dinâmico de imagens**, alterando a interface conforme o resultado do IMC;
 - **Números Decimais**, prevenindo erros e garantindo a precisão do cálculo.
 
