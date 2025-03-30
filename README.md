@@ -12,6 +12,7 @@ A **Calculadora de IMC** é um aplicativo Android desenvolvido em Java no Androi
 ## Informações do Desenvolvedor
 **Nome:** Stephany Aliyah Guimarães Eurípedes de Paula  
 **RA:** 24026434  
+**Curso:** Ciência da Computação - 3°Semestre (Noturno)
 
 ## Processo de Desenvolvimento
 O desenvolvimento do aplicativo envolveu a implementação de conceitos fundamentais do Android, como navegação entre telas, tratamento de entrada do usuário e exibição de feedback visual. Durante esse processo, alguns desafios foram enfrentados, tais como:
@@ -27,7 +28,7 @@ O desenvolvimento do aplicativo envolveu a implementação de conceitos fundamen
 - **Interface intuitiva** e responsiva para melhor experiência do usuário.
 
 ## Como Executar o Aplicativo
-1. **Baixar o APK**: [Download do APK](./app-debug.apk)  
+1. **Baixar o APK**: [Download do APK](./app-debug.apk)  Ou ir na pasta src/CalculaIMC.apk
 2. Transferir o arquivo para um dispositivo Android.
 3. Instalar e abrir o aplicativo.
 4. Inserir os dados solicitados (altura e peso) e obter o resultado do IMC.
@@ -36,7 +37,7 @@ O desenvolvimento do aplicativo envolveu a implementação de conceitos fundamen
 ```
 Calculadora_IMC/
 ├── app-debug.apk    # Arquivo compilado do aplicativo
-├── projeto.zip      # Código-fonte do projeto(pasta src)
+├── projeto.zip      # Código-fonte do projeto(pasta src/CalculadoraIMC.zip)
 ├── README.md        # Documentação do projeto
 ```
 
