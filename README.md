@@ -1,6 +1,6 @@
 # Calculadora de IMC - Android
 
-## Descrição Geral
+## Descrição do Projeto:
 A **Calculadora de IMC** é um aplicativo Android desenvolvido em Java no Android Studio que permite aos usuários calcular o **Índice de Massa Corporal (IMC)** e receber um feedback personalizado de acordo com a classificação do IMC. O aplicativo foi projetado para oferecer uma experiência intuitiva e interativa, utilizando diversos recursos do Android.
 
 ### **Principais Funcionalidades:**
