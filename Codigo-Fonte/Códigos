@@ -1,0 +1,1681 @@
+**Projeto Calculadora IMC Com FeedBack Positivos** 
+
+**app.values.xml**
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cores do Projeto -->
+    <color name="appColor1">#<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cores do Projeto -->
+    <color name="appColor1">#FFFFFF</color> <!-- Branco -->
+    <color name="appColor2">#006341</color> <!-- Verde Escuro -->
+    <color name="appColor3">#00A859</color> <!-- Verde Claro -->
+    <color name="appColor4">#4D4D4D</color> <!-- Cinza Escuro -->
+    <color name="appColor5">#B3B3B3</color> <!-- Cinza Claro -->
+
+    <!-- Tela 1 - Tela Inicial -->
+    <string name="appT1BtnSet">Calculadora IMC</string>
+
+    <!-- Tela 2 (CalculoIMC) - Cálculo do IMC -->
+    <string name="appHintPeso">Entre com Peso (kg):</string>
+    <string name="appHintAltura">Entre com Altura (m):</string>
+    <string name="appT2Titulo">Calculadora de IMC</string>
+    <string name="appT2BtnImc">Calcular IMC</string>
+    <string name="appT2BtnReset">Limpar</string>
+    <string name="appT2BtnClose">Fechar</string>
+
+    <!-- Tela 3 - Resultado do Cálculo -->
+    <string name="appT3Titulo">Resultado do IMC</string>
+    <string name="appT3Resultado">Seu IMC:</string>
+    <string name="appT3Raltura">Sua Altura:</string>
+    <string name="appT3Rpeso">Seu Peso:</string>
+    <string name="appT3BtnClose">Fechar</string>
+
+    <!-- Tela Feedback - Titulo -->
+    <string name="imc_Pabaixo">Abaixo do Peso</string>
+    <string name="imc_Pnormal">Peso Normal</string>
+    <string name="imc_Psobrepeso">Sobrepeso</string>
+    <string name="imc_Pobesidade1">Obesidade 1</string>
+    <string name="imc_Pobesidade2">Obesidade 2</string>
+    <string name="imc_Pobesidade3">Obesidade 3</string>
+
+    <!-- Mensagens de Feedback -->
+    <string name="Pabaixo">
+        Seu peso está abaixo do recomendado, o que pode estar ligado à alimentação, metabolismo ou fatores genéticos.
+        Consulte um profissional para avaliar sua saúde e melhorar sua alimentação.
+    </string>
+
+    <string name="Pnormal">
+        Parabéns! Seu peso está saudável. Mantenha uma alimentação equilibrada e pratique atividades físicas para preservar sua saúde.
+    </string>
+
+    <string name="Psobrepeso">
+        Atenção! Seu IMC indica sobrepeso. Pequenas mudanças na alimentação e exercícios podem ajudar a evitar problemas futuros.
+        Consulte um profissional para orientações.
+    </string>
+
+    <string name="Pobesidade1">
+        Cuidado! Seu IMC indica Obesidade Grau 1, o que pode aumentar riscos à saúde.
+        Adote hábitos mais saudáveis e procure um profissional para acompanhamento.
+    </string>
+
+    <string name="Pobesidade2">
+        Alerta! Seu IMC está em Obesidade Grau 2. Isso pode impactar sua saúde.
+        Busque acompanhamento médico e faça mudanças no estilo de vida para melhorar seu bem-estar.
+    </string>
+
+    <string name="Pobesidade3">
+        Risco elevado! Seu IMC indica Obesidade Grau 3, aumentando o risco de complicações.
+        Procure ajuda profissional o quanto antes para melhorar sua qualidade de vida.
+    </string>
+
+
+    <!-- Botões das telas de feedback -->
+    <string name="T3Btn_denovo">Calcular novamente</string>
+    <string name="T3Btn_sair">Sair</string>
+
+</resources>
+
+
+Tela 1:
+activity_main.xml
+Tela Principal (MainActivity):
+• Exibir um logo (imagem) centralizado.
+• Apresentar um botão "Calculadora IMC".
+• Ao clicar no botão, navegar para a tela de cálculo de IMC (CalculoIMCActivity).
+• Utilizar a Paleta de cores definida nesse enunciado.
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.a<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appColor1"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="378dp"
+        android:layout_height="327dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/logo1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.289" />
+
+    <Button
+        android:id="@+id/appT1BtnSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor3"
+        android:fontFamily="monospace"
+        android:padding="20dp"
+        android:text="@string/appT1BtnSet"
+        android:textAlignment="center"
+        android:textColor="@color/appColor1"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logoImage"
+        app:layout_constraintVertical_bias="0.268" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+MainAcitivity_java
+package br.feccapccp.novoimc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        // Encontrar o botão pelo ID
+        Button btnIrParaCalculo = findViewById(R.id.appT1BtnSet);
+
+        // Definir evento de clique para abrir a tela de cálculo do IMC
+        btnIrParaCalculo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Criar Intent para abrir a segunda tela
+                Intent intent = new Intent(MainActivity.this, CalculoIMCActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+2. Tela de Cálculo de IMC (CalculoIMCActivity):
+• Exibir um logo (imagem) no topo.
+• Apresentar dois campos de entrada de texto (PlainText):
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalculoIMCActivity"
+    android:background="@color/appColor1">
+
+    <!-- Logo -->
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="349dp"
+        android:layout_height="293dp"
+        android:layout_marginBottom="456dp"
+        android:src="@drawable/imc_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Título -->
+
+
+    <!-- Campo Altura -->
+
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/appT2Titulo"
+        android:textAlignment="center"
+        android:textColor="@color/appColor3"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.426" />
+
+    <!-- Campo Peso -->
+
+    <EditText
+        android:id="@+id/editTextAltura"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="30dp"
+        android:background="@color/appColor1"
+        android:hint="@string/appHintAltura"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:textColorHint="@color/appColor4"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTitulo" />
+
+    <EditText
+        android:id="@+id/editTextPeso"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@color/appColor1"
+        android:hint="@string/appHintPeso"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:textColorHint="@color/appColor4"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextAltura" />
+
+
+    <!-- Botão Calcular IMC -->
+
+    <Button
+        android:id="@+id/T2btnImc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor3"
+        android:fontFamily="monospace"
+        android:onClick="calculaImc"
+        android:text="@string/appT2BtnImc"
+        android:textAlignment="center"
+        android:textColor="@color/appColor1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.773" />
+
+    <!-- Botão Limpar -->
+
+    <Button
+        android:id="@+id/T2BtnReset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor3"
+        android:fontFamily="monospace"
+        android:onClick="limpar"
+        android:text="@string/appT2BtnReset"
+        android:textAlignment="center"
+        android:textColor="@color/appColor1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.859" />
+
+    <!-- Botão Fechar  -->
+
+    <Button
+        android:id="@+id/T2BtnSet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor3"
+        android:fontFamily="monospace"
+        android:onClick="fechar"
+        android:text="@string/appT2BtnClose"
+        android:textAlignment="center"
+        android:textColor="@color/appColor1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.947" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+CalculoIMCActivity
+
+package br.feccapccp.novoimc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import java.text.DecimalFormat;
+
+public class CalculoIMCActivity extends AppCompatActivity {
+    private EditText editTextAltura, editTextPeso;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_calculo_imcactivity);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        // Instanciando os elementos da interface
+        editTextAltura = findViewById(R.id.editTextAltura);
+        editTextPeso = findViewById(R.id.editTextPeso);
+    }
+
+    // Metodo para calcular o IMC e abrir a tela correspondente
+    public void calculaImc(View view) {
+        String alturaStr = editTextAltura.getText().toString();
+        String pesoStr = editTextPeso.getText().toString();
+
+        if (alturaStr.isEmpty() || pesoStr.isEmpty()) {
+            Toast.makeText(this, "Preencha os campos!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        double altura = Double.parseDouble(alturaStr);
+        double peso = Double.parseDouble(pesoStr);
+        double imc = peso / (altura * altura);
+
+        DecimalFormat df = new DecimalFormat("0.00");
+        String imcFormatado = df.format(imc);
+
+        // Determinar a Activity correspondente ao IMC
+        Class<?> destino;
+        if (imc < 18.5) {
+            destino = AbaixoDoPesoActivity.class;
+        } else if (imc < 24.9) {
+            destino = PesoNormalActivity.class;
+        } else if (imc < 29.9) {
+            destino = SobrepesoActivity.class;
+        } else if (imc < 34.9) {
+            destino = Obesidade1Activity.class;
+        } else if (imc < 39.9) {
+            destino = Obesidade2Activity.class;
+        } else {
+            destino = Obesidade3Activity.class;
+        }
+
+        // Criar Intent e enviar o resultado
+        Intent intent = new Intent(this, destino);
+        intent.putExtra("IMC_Resultado", imcFormatado);
+        intent.putExtra("Altura", alturaStr); // Enviar altura
+        intent.putExtra("Peso", pesoStr); // Enviar peso
+        startActivity(intent);
+    }
+
+    // Metodo para limpar os campos
+    public void limpar(View view) {
+        editTextAltura.setText("");
+        editTextPeso.setText("");
+    }
+
+    // Metodo para fechar e voltar à tela principal
+    public void fechar(View view) {
+        finish();
+    }
+}
+
+
+
+
+Telas de Feedback (uma para cada categoria de IMC):
+• Criar Activities separadas para cada categoria de IMC:
+o Abaixo do peso (AbaixoDoPesoActivity).
+o Peso normal (PesoNormalActivity).
+o Sobrepeso (SobrepesoActivity).
+o Obesidade grau 1 (Obesidade1Activity).
+o Obesidade grau 2 (Obesidade2Activity).
+o Obesidade grau 3 (Obesidade3Activity).
+Cada tela de feedback deve exibir:
+o O peso, altura, IMC e classificação do usuário (usando TextView).
+o Uma imagem relevante para a categoria de IMC.
+o Uma mensagem de texto positiva e motivacional relacionada à classificação.
+o Um botão "Fechar": Retornar para a tela principal (MainActivity).
+• Utilizar a Paleta de cores definida nesse enunciado.
+• Os valores de String, e outras variaveis que forem pertinentes, devem ser todos
+implementados dentro do arquivo values xml.
+
+activity_abaixodopeso.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appColor1"
+    tools:context=".AbaixoDoPesoActivity">
+
+    <!-- Título do resultado -->
+    <TextView
+        android:id="@+id/textResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/appT3Resultado"
+        android:textColor="@color/appColor2"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/appColor5"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <!-- Altura -->
+    <TextView
+        android:id="@+id/textRaltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Raltura"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Peso -->
+    <TextView
+        android:id="@+id/textRpeso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Rpeso"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textRaltura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/appColor5"
+        app:layout_constraintTop_toBottomOf="@id/textRpeso"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <!-- Imagem de Feedback -->
+
+    <ImageView
+        android:id="@+id/imageFeedback"
+        android:layout_width="264dp"
+        android:layout_height="238dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/abaixodopeso"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textRpeso"
+        app:layout_constraintVertical_bias="0.084" />
+
+    <!-- Titulo - Abaixo do Peso -->
+
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/imc_Pabaixo"
+        android:textAlignment="center"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageFeedback" />
+
+    <!-- Descrição sobre Abaixo do Peso -->
+
+    <TextView
+        android:id="@+id/textAbaixodoPeso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/Pabaixo"
+        android:textAlignment="center"
+        android:textColor="@color/appColor4"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTitulo"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!-- Botão Fechar -->
+
+    <Button
+        android:id="@+id/btnFechar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor3"
+        android:fontFamily="monospace"
+        android:text="@string/appT3BtnClose"
+        android:textColor="@color/appColor1"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textAbaixodoPeso"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+AbaixoDoPesoActivity
+package br.feccapccp.novoimc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class AbaixoDoPesoActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_abaixo_do_peso);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            v.setPadding(insets.getInsets(WindowInsetsCompat.Type.systemBars()).left,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).right,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom);
+            return insets;
+        });
+
+        // Associar elementos da interface
+        TextView textResultado = findViewById(R.id.textResultado);
+        TextView textRaltura = findViewById(R.id.textRaltura);
+        TextView textRpeso = findViewById(R.id.textRpeso);
+        TextView textTitulo = findViewById(R.id.textTitulo);
+        TextView textAbaixodoPeso = findViewById(R.id.textAbaixodoPeso);
+        Button btnFechar = findViewById(R.id.btnFechar);
+
+        // Receber dados da Intent
+        Intent intent = getIntent();
+        String imcResultado = intent.getStringExtra("IMC_Resultado");
+        String altura = intent.getStringExtra("Altura");
+        String peso = intent.getStringExtra("Peso");
+
+        // Atualizar TextViews com os dados recebidos
+        textResultado.setText("Seu IMC: " + imcResultado);
+        textRaltura.setText("Altura: " + altura + " m");
+        textRpeso.setText("Peso: " + peso + " kg");
+
+        // Configurar botão para voltar à MainActivity
+        btnFechar.setOnClickListener(v -> {
+            Intent mainIntent = new Intent(AbaixoDoPesoActivity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+        });
+    }
+}
+
+
+activity_pesonormal.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/appColor1"
+    tools:context=".PesoNormalActivity">
+
+
+    <!-- Título do resultado -->
+    <TextView
+        android:id="@+id/textResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/appT3Resultado"
+        android:textColor="@color/appColor2"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/appColor5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textResultado" />
+
+    <!-- Altura -->
+    <TextView
+        android:id="@+id/textRaltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Raltura"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Peso -->
+    <TextView
+        android:id="@+id/textRpeso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Rpeso"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textRaltura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/appColor5"
+        app:layout_constraintTop_toBottomOf="@id/textRpeso"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/imageFeedback"
+        android:layout_width="264dp"
+        android:layout_height="238dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/pesonormal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintVertical_bias="0.342" />
+
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/imc_Pnormal"
+        android:textAlignment="center"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.703" />
+
+    <TextView
+        android:id="@+id/textPesoNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/Pnormal"
+        android:textAlignment="center"
+        android:textColor="@color/appColor4"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.834" />
+
+    <Button
+        android:id="@+id/btnFechar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor3"
+        android:fontFamily="monospace"
+        android:text="@string/appT3BtnClose"
+        android:textColor="@color/appColor1"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textPesoNormal"
+        app:layout_constraintVertical_bias="0.392" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+PesoNormalActivity
+
+package br.feccapccp.novoimc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class PesoNormalActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_peso_normal);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            v.setPadding(insets.getInsets(WindowInsetsCompat.Type.systemBars()).left,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).right,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom);
+            return insets;
+        });
+
+        // Associar elementos da interface
+        TextView textResultado = findViewById(R.id.textResultado);
+        TextView textRaltura = findViewById(R.id.textRaltura);
+        TextView textRpeso = findViewById(R.id.textRpeso);
+        TextView textTitulo = findViewById(R.id.textTitulo);
+        TextView textPesoNormal = findViewById(R.id.textPesoNormal);
+        Button btnFechar = findViewById(R.id.btnFechar);
+
+        // Receber dados da Intent
+        Intent intent = getIntent();
+        String imcResultado = intent.getStringExtra("IMC_Resultado");
+        String altura = intent.getStringExtra("Altura");
+        String peso = intent.getStringExtra("Peso");
+
+        // Atualizar TextViews com os dados recebidos
+        textResultado.setText("Seu IMC: " + imcResultado);
+        textRaltura.setText("Altura: " + altura + " m");
+        textRpeso.setText("Peso: " + peso + " kg");
+        // Configurar botão para voltar à MainActivity
+        btnFechar.setOnClickListener(v -> {
+            Intent mainIntent = new Intent(PesoNormalActivity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+        });
+    }
+}
+
+
+
+
+activity_sobrepeso.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/appColor1"
+    tools:context=".SobrepesoActivity">
+
+    <!-- Título do resultado -->
+    <TextView
+        android:id="@+id/textResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/appT3Resultado"
+        android:textColor="@color/appColor2"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/appColor5"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <!-- Altura -->
+    <TextView
+        android:id="@+id/textRaltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Raltura"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Peso -->
+    <TextView
+        android:id="@+id/textRpeso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Rpeso"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textRaltura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/appColor5"
+        app:layout_constraintTop_toBottomOf="@id/textRpeso"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/imageFeedback"
+        android:layout_width="264dp"
+        android:layout_height="238dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/sobrepeso"
+        app:layout_constraintBottom_toTopOf="@+id/textTitulo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/imc_Psobrepeso"
+        android:textAlignment="center"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.687" />
+
+    <TextView
+        android:id="@+id/textSobrepeso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/Psobrepeso"
+        android:textAlignment="center"
+        android:textColor="@color/appColor4"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.845" />
+
+    <Button
+        android:id="@+id/btnFechar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor3"
+        android:fontFamily="monospace"
+        android:text="@string/appT3BtnClose"
+        android:textColor="@color/appColor1"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textSobrepeso"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+SobrepesoActivity
+package br.feccapccp.novoimc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class SobrepesoActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_sobrepeso);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            v.setPadding(insets.getInsets(WindowInsetsCompat.Type.systemBars()).left,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).right,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom);
+            return insets;
+        });
+
+        // Associar elementos da interface
+        TextView textResultado = findViewById(R.id.textResultado);
+        TextView textRaltura = findViewById(R.id.textRaltura);
+        TextView textRpeso = findViewById(R.id.textRpeso);
+        TextView textTitulo = findViewById(R.id.textTitulo);
+        TextView textSobrepeso = findViewById(R.id.textSobrepeso);
+        Button btnFechar = findViewById(R.id.btnFechar);
+
+        // Receber dados da Intent
+        Intent intent = getIntent();
+        String imcResultado = intent.getStringExtra("IMC_Resultado");
+        String altura = intent.getStringExtra("Altura");
+        String peso = intent.getStringExtra("Peso");
+
+        // Atualizar TextViews com os dados recebidos
+
+        textResultado.setText("Seu IMC: " + imcResultado);
+        textRaltura.setText("Altura: " + altura + " m");
+        textRpeso.setText("Peso: " + peso + " kg");
+
+        // Configurar botão para voltar à MainActivity
+        btnFechar.setOnClickListener(v -> {
+            Intent mainIntent = new Intent(SobrepesoActivity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+        });
+    }
+}
+
+activity_obesidade1.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/appColor1"
+    tools:context=".Obesidade1Activity">
+
+    <!-- Título do resultado -->
+    <TextView
+        android:id="@+id/textResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/appT3Resultado"
+        android:textColor="@color/appColor2"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/appColor5"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <!-- Altura -->
+    <TextView
+        android:id="@+id/textRaltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Raltura"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Peso -->
+    <TextView
+        android:id="@+id/textRpeso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Rpeso"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textRaltura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/appColor5"
+        app:layout_constraintTop_toBottomOf="@id/textRpeso"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/imageFeedback"
+        android:layout_width="264dp"
+        android:layout_height="238dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/obesidade1"
+        app:layout_constraintBottom_toTopOf="@+id/textTitulo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/imc_Pobesidade1"
+        android:textAlignment="center"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.684" />
+
+    <TextView
+        android:id="@+id/textObesidade1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/Pobesidade1"
+        android:textAlignment="center"
+        android:textColor="@color/appColor4"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.847" />
+
+    <Button
+        android:id="@+id/btnFechar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor3"
+        android:fontFamily="monospace"
+        android:text="@string/appT3BtnClose"
+        android:textColor="@color/appColor1"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textObesidade1"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+Obesidade1Activity
+package br.feccapccp.novoimc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class Obesidade1Activity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_obesidade1);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            v.setPadding(insets.getInsets(WindowInsetsCompat.Type.systemBars()).left,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).right,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom);
+            return insets;
+        });
+
+        // Associar elementos da interface
+        TextView textResultado = findViewById(R.id.textResultado);
+        TextView textRaltura = findViewById(R.id.textRaltura);
+        TextView textRpeso = findViewById(R.id.textRpeso);
+        TextView textTitulo = findViewById(R.id.textTitulo);
+        TextView textObesidade1 = findViewById(R.id.textObesidade1);
+        Button btnFechar = findViewById(R.id.btnFechar);
+
+        // Receber dados da Intent
+        Intent intent = getIntent();
+        String imcResultado = intent.getStringExtra("IMC_Resultado");
+        String altura = intent.getStringExtra("Altura");
+        String peso = intent.getStringExtra("Peso");
+
+        // Atualizar TextViews com os dados recebidos
+        textResultado.setText("Seu IMC: " + imcResultado);
+        textRaltura.setText("Altura: " + altura + " m");
+        textRpeso.setText("Peso: " + peso + " kg");
+        // Configurar botão para voltar à MainActivity
+        btnFechar.setOnClickListener(v -> {
+            Intent mainIntent = new Intent(Obesidade1Activity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+        });
+
+    }
+}
+
+activity_obesidade2.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appColor1"
+    tools:context=".Obesidade2Activity">
+
+    <!-- Título do resultado -->
+    <TextView
+        android:id="@+id/textResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/appT3Resultado"
+        android:textColor="@color/appColor2"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/appColor5"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <!-- Altura -->
+    <TextView
+        android:id="@+id/textRaltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Raltura"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Peso -->
+    <TextView
+        android:id="@+id/textRpeso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appT3Rpeso"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/textRaltura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Divisor Cinza Claro -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/appColor5"
+        app:layout_constraintTop_toBottomOf="@id/textRpeso"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/imageFeedback"
+        android:layout_width="264dp"
+        android:layout_height="238dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/obesidade2"
+        app:layout_constraintBottom_toTopOf="@+id/textTitulo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textResultado" />
+
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/imc_Pobesidade2"
+        android:textAlignment="center"
+        android:textColor="@color/appColor2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.674" />
+
+    <TextView
+        android:id="@+id/textObesidade2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/Pobesidade2"
+        android:textAlignment="center"
+        android:textColor="@color/appColor4"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.833" />
+
+    <Button
+        android:id="@+id/btnFechar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor3"
+        android:fontFamily="monospace"
+        android:text="@string/appT3BtnClose"
+        android:textColor="@color/appColor1"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textObesidade2"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+Obesidade2Activity
+package br.feccapccp.novoimc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+
+public class Obesidade2Activity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_obesidade2);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            v.setPadding(insets.getInsets(WindowInsetsCompat.Type.systemBars()).left,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).right,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom);
+            return insets;
+        });
+
+        // Associar elementos da interface
+        TextView textResultado = findViewById(R.id.textResultado);
+        TextView textRaltura = findViewById(R.id.textRaltura);
+        TextView textRpeso = findViewById(R.id.textRpeso);
+        TextView textTitulo = findViewById(R.id.textTitulo);
+        TextView textObesidade2 = findViewById(R.id.textObesidade2);
+        Button btnFechar = findViewById(R.id.btnFechar);
+
+        // Receber dados da Intent
+        Intent intent = getIntent();
+        String imcResultado = intent.getStringExtra("IMC_Resultado");
+        String altura = intent.getStringExtra("Altura");
+        String peso = intent.getStringExtra("Peso");
+
+        // Atualizar TextViews com os dados recebidos
+        textResultado.setText("Seu IMC: " + imcResultado);
+        textRaltura.setText("Altura: " + altura + " m");
+        textRpeso.setText("Peso: " + peso + " kg");
+        // Configurar botão para voltar à MainActivity
+        btnFechar.setOnClickListener(v -> {
+            Intent mainIntent = new Intent(Obesidade2Activity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+        });
+    }
+}
+
+activity_obesidade3.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/appColor1"
+    tools:context=".Obesidade3Activity">  <!-- Título do resultado -->
+        <TextView
+            android:id="@+id/textResultado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/appT3Resultado"
+            android:textColor="@color/appColor2"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Divisor Cinza Claro -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/appColor5"
+            app:layout_constraintTop_toBottomOf="@id/textResultado"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"/>
+
+        <!-- Altura -->
+        <TextView
+            android:id="@+id/textRaltura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appT3Raltura"
+            android:textColor="@color/appColor2"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/textResultado"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"/>
+
+        <!-- Peso -->
+        <TextView
+            android:id="@+id/textRpeso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appT3Rpeso"
+            android:textColor="@color/appColor2"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/textRaltura"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Divisor Cinza Claro -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/appColor5"
+            app:layout_constraintTop_toBottomOf="@id/textRpeso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"/>
+
+        <ImageView
+            android:id="@+id/imageFeedback"
+            android:layout_width="264dp"
+            android:layout_height="238dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/obesidade3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textResultado"
+            app:layout_constraintVertical_bias="0.266" />
+
+
+        <TextView
+            android:id="@+id/textTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="@string/imc_Pobesidade3"
+            android:textAlignment="center"
+            android:textColor="@color/appColor2"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.672" />
+
+        <TextView
+            android:id="@+id/textObesidade3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="@string/Pobesidade3"
+            android:textAlignment="center"
+            android:textColor="@color/appColor4"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.841" />
+
+        <Button
+            android:id="@+id/btnFechar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="@color/appColor3"
+            android:fontFamily="monospace"
+            android:text="@string/appT3BtnClose"
+            android:textColor="@color/appColor1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textObesidade3"
+            app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+Obesidade3Activity
+
+package br.feccapccp.novoimc;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class Obesidade3Activity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_obesidade3);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            v.setPadding(insets.getInsets(WindowInsetsCompat.Type.systemBars()).left,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).right,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom);
+            return insets;
+        });
+
+        // Associar elementos da interface
+        TextView textResultado = findViewById(R.id.textResultado);
+        TextView textRaltura = findViewById(R.id.textRaltura);
+        TextView textRpeso = findViewById(R.id.textRpeso);
+        TextView textTitulo = findViewById(R.id.textTitulo);
+        TextView textObesidade3 = findViewById(R.id.textObesidade3);
+        Button btnFechar = findViewById(R.id.btnFechar);
+
+        // Receber dados da Intent
+        Intent intent = getIntent();
+        String imcResultado = intent.getStringExtra("IMC_Resultado");
+        String altura = intent.getStringExtra("Altura");
+        String peso = intent.getStringExtra("Peso");
+
+        // Atualizar TextViews com os dados recebidos
+        textResultado.setText("Seu IMC: " + imcResultado);
+        textRaltura.setText("Altura: " + altura + " m");
+        textRpeso.setText("Peso: " + peso + " kg");
+        // Configurar botão para voltar à MainActivity
+        btnFechar.setOnClickListener(v -> {
+            Intent mainIntent = new Intent(Obesidade3Activity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+        });
+    }
+}
