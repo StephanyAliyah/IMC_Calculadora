@@ -11,7 +11,6 @@ A **Calculadora de IMC** é um aplicativo Android desenvolvido em Java no Androi
 
 ## Informações do Desenvolvedor
 **Nome:** Stephany Aliyah Guimarães Eurípedes de Paula  
-**RA:** 24026434  
 **Curso:** Ciência da Computação - 3°Semestre (Noturno)
 
 ## Processo de Desenvolvimento
